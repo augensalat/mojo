@@ -272,6 +272,8 @@ keep-alive and multiple event loop support. Note that the server uses signals
 for process management, so you should avoid modifying signal handlers in your
 applications.
 
+The C<srand()> function is called when a worker process is spawned.
+
 For better scalability (epoll, kqueue) and to provide non-blocking name
 resolution, SOCKS5 as well as TLS support, the optional modules L<EV> (4.0+),
 L<Net::DNS::Native> (0.15+), L<IO::Socket::Socks> (0.64+) and
