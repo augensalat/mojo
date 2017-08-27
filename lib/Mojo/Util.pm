@@ -391,10 +391,12 @@ sub _entity {
   return '&' . reverse $rest;
 }
 
-# Supported on Perl 5.14+
-sub _global_destruction {
-  defined ${^GLOBAL_PHASE} && ${^GLOBAL_PHASE} eq 'DESTRUCT';
-}
+monkey_patch __PACKAGE__, _global_destruction =>
+  defined(${^GLOBAL_PHASE}) ?  # Supported on Perl 5.14+
+    sub { ${^GLOBAL_PHASE} eq 'DESTRUCT' } :
+    eval { require Devel::GlobalDestruction } ?
+      sub { goto &Devel::GlobalDestruction::in_global_destruction } :
+      sub { !1 };
 
 sub _header {
   my ($str, $cookie) = @_;
