@@ -1,4 +1,4 @@
-package MojoliciousLoaderTest::Foo::Bar;
+package MojoliciousLoaderTest::Controller::Foo::Bar;
 
 use Mojo::Base 'Mojolicious::Controller';
 
